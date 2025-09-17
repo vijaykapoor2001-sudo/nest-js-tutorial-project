@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { ConfigService } from '@nestjs/config';
@@ -23,8 +23,13 @@ async validate(payload: {sub: number; email: string; }) {
     const user = await this.prisma.user.findUnique({
       where: { id: payload.sub },
     });
+    // handle the null case first
+    if (!user) {
+      throw new UnauthorizedException();
+    }
     //console.log('JWT payload:', payload);
-    delete user.hash; // remove hash before attaching to req.user
-    return user; // attaches to req.user
+    const { hash, ...userWithoutHash } = user;
+
+    return userWithoutHash; // this will be attached to req.user
   }
 }

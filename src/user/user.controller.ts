@@ -8,7 +8,7 @@ export class UserController {
   @Get('me')
   getMe(@Req() req: Request) {
     // req.user comes from JwtStrategy.validate()
-    console.log(req.user);
+    console.log("user :",req.user);
     return req.user; // return user payload instead of static string
   }
 }
