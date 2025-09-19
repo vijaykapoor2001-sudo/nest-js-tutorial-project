@@ -1,4 +1,5 @@
 services:
+    
     dev-db:
       image: postgres:13
       restart: always
@@ -8,6 +9,16 @@ services:
         POSTGRES_USER: postgres
         POSTGRES_PASSWORD: 123
         POSTGRES_DB: nest
+
+    test-db:
+      image: postgres:13
+      restart: always
+      ports:
+        - "5435:5432"
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: 123
+        POSTGRES_DB: nest    
         
      
   
