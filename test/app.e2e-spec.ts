@@ -238,7 +238,8 @@ describe('App e2e', () => {
           .expectStatus(204)
       });
     });
-  });
+  
+    describe('Get empty bookmark by id', () => {
     it('should get empty bookmark by id', () => {
         return pactum
           .spec()
@@ -249,4 +250,6 @@ describe('App e2e', () => {
           })
           .expectStatus(404)
       });
+    });
+  });
 });
